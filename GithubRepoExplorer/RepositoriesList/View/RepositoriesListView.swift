@@ -11,27 +11,39 @@ struct RepositoriesListView: View {
     
     @ObservedObject var viewModel: RepositoriesListViewModel
     
+    @State private var path: [Repository] = []
+    
     var body: some View {
-        VStack {
-            switch viewModel.state {
-            case .loading:
-                LoadingView(message: "Loading GitHub repositories...")
-            case .loaded(let repositories):
-                List(repositories, id: \.id) { repository in
-                        RepositoriesListItemView(
-                            repository: repository,
-                            isFavorite: viewModel.isFavorite(repository),
-                            favoriteHandler: {
-                                viewModel.toggleFavorite(for: repository)
-                            }
-                        )
+        NavigationStack(path: $path) {
+            VStack {
+                switch viewModel.state {
+                case .loading:
+                    LoadingView(message: "Loading GitHub repositories...")
+                case .loaded(let repositories):
+                    List(repositories, id: \.id) { repository in
+                        Button {
+                            path.append(repository)
+                        } label: {
+                            RepositoriesListItemView(
+                                repository: repository,
+                                isFavorite: viewModel.isFavorite(repository),
+                                favoriteHandler: {
+                                    viewModel.toggleFavorite(for: repository)
+                                }
+                            )
+                        }
+                    }
+                case .failed(let error):
+                    ErrorView(message: error.localizedDescription)
                 }
-            case .failed(let error):
-                ErrorView(message: error.localizedDescription)
             }
-        }
-        .task {
-            await viewModel.loadData()
+            .navigationTitle("GitHub Repositories")
+            .navigationDestination(for: Repository.self) { repository in
+                RepositoryDetailsView()
+            }
+            .task {
+                await viewModel.loadData()
+            }
         }
     }
 }
