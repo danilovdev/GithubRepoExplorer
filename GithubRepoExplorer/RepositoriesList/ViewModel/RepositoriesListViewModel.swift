@@ -12,10 +12,20 @@ final class RepositoriesListViewModel: ObservableObject {
     
     @Published var state: LoadableState<[Repository]> = .loading
     
+    @Published var favorites: Set<Int> = []
+    
     private let repositoriesService: RepositoriesService
     
-    init(repositoriesService: RepositoriesService) {
+    private let favoritesStorage: FavoritesStorage
+    
+    
+    init(
+        repositoriesService: RepositoriesService,
+        favoritesStorage: FavoritesStorage
+    ) {
         self.repositoriesService = repositoriesService
+        self.favoritesStorage = favoritesStorage
+        self.favorites = favoritesStorage.loadFavorites()
     }
     
     func loadData() async {
@@ -26,6 +36,18 @@ final class RepositoriesListViewModel: ObservableObject {
         } catch {
             print("Error")
         }
-        
+    }
+    
+    func toggleFavorite(for repository: Repository) {
+        if favorites.contains(repository.id) {
+            favorites.remove(repository.id)
+        } else {
+            favorites.insert(repository.id)
+        }
+        favoritesStorage.saveFavorites(favorites)
+    }
+    
+    func isFavorite(_ repository: Repository) -> Bool {
+        favorites.contains(repository.id)
     }
 }

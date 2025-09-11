@@ -9,7 +9,7 @@ import SwiftUI
 
 struct RepositoriesListView: View {
     
-    @StateObject var viewModel: RepositoriesListViewModel
+    @ObservedObject var viewModel: RepositoriesListViewModel
     
     var body: some View {
         VStack {
@@ -18,7 +18,13 @@ struct RepositoriesListView: View {
                 LoadingView(message: "Loading GitHub repositories...")
             case .loaded(let repositories):
                 List(repositories, id: \.id) { repository in
-                        RepositoriesListItemView(repository: repository)
+                        RepositoriesListItemView(
+                            repository: repository,
+                            isFavorite: viewModel.isFavorite(repository),
+                            favoriteHandler: {
+                                viewModel.toggleFavorite(for: repository)
+                            }
+                        )
                 }
             case .failed(let error):
                 ErrorView(message: error.localizedDescription)

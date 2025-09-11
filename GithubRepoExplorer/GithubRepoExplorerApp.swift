@@ -11,7 +11,11 @@ import SwiftUI
 struct GithubRepoExplorerApp: App {
     var body: some Scene {
         let repositoriesService = RepositoriesServiceImpl()
-        let viewModel = RepositoriesListViewModel(repositoriesService: repositoriesService)
+        let favoritesStorage = FavoritesStorageImpl()
+        let viewModel = RepositoriesListViewModel(
+            repositoriesService: repositoriesService,
+            favoritesStorage: favoritesStorage
+        )
         WindowGroup {
             RepositoriesListView(viewModel: viewModel)
         }
