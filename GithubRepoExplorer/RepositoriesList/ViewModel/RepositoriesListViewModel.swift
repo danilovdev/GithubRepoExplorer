@@ -10,9 +10,7 @@ import Foundation
 @MainActor
 final class RepositoriesListViewModel: ObservableObject {
     
-    @Published var repositories: [Repository] = []
-    
-    @Published var isLoading: Bool = false
+    @Published var state: LoadableState<[Repository]> = .loading
     
     private let repositoriesService: RepositoriesService
     
@@ -21,13 +19,13 @@ final class RepositoriesListViewModel: ObservableObject {
     }
     
     func loadData() async {
-        isLoading = true
+        state = .loading
         do {
-            let respositories = try await repositoriesService.loadRepositories()
-            self.repositories = respositories
+            let repositories = try await repositoriesService.loadRepositories()
+            state = .loaded(repositories)
         } catch {
             print("Error")
         }
-        isLoading = false
+        
     }
 }

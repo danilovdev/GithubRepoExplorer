@@ -13,8 +13,15 @@ struct RepositoriesListView: View {
     
     var body: some View {
         VStack {
-            List(viewModel.repositories) { repository in
-                    RepositoriesListItemView(repository: repository)
+            switch viewModel.state {
+            case .loading:
+                LoadingView(message: "Loading GitHub repositories...")
+            case .loaded(let repositories):
+                List(repositories, id: \.id) { repository in
+                        RepositoriesListItemView(repository: repository)
+                }
+            case .failed(let error):
+                ErrorView(message: error.localizedDescription)
             }
         }
         .task {
