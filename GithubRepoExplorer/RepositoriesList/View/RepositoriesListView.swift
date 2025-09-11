@@ -9,7 +9,7 @@ import SwiftUI
 
 struct RepositoriesListView: View {
     
-    @ObservedObject var viewModel: RepositoriesListViewModel
+    @StateObject var viewModel: RepositoriesListViewModel
     
     @State private var path: [Repository] = []
     
