@@ -34,7 +34,7 @@ final class RepositoriesListViewModel: ObservableObject {
             let repositories = try await repositoriesService.loadRepositories()
             state = .loaded(repositories)
         } catch {
-            print("Error")
+            state = .failed(error)
         }
     }
     

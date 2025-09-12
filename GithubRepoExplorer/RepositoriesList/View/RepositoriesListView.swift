@@ -34,7 +34,11 @@ struct RepositoriesListView: View {
                         }
                     }
                 case .failed(let error):
-                    ErrorView(message: error.localizedDescription)
+                    ErrorView(message: error.localizedDescription, retryAction: {
+                        Task {
+                            await viewModel.loadData()
+                        }
+                    })
                 }
             }
             .navigationTitle("GitHub Repositories")
