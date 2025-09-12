@@ -31,6 +31,13 @@ struct RepositoriesListView: View {
                                     viewModel.toggleFavorite(for: repository)
                                 }
                             )
+                            .onAppear {
+                                if repository.id == repositories.last?.id {
+                                    Task {
+                                        await viewModel.loadData()
+                                    }
+                                }
+                            }
                         }
                     }
                 case .failed(let error):

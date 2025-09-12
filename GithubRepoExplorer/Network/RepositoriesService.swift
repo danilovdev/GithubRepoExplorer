@@ -8,7 +8,7 @@
 import Foundation
 
 protocol RepositoriesService {
-    func loadRepositories() async throws -> [Repository]
+    func loadRepositories(url: URL?) async throws -> PaginatedResponse<[Repository]>
 }
 
 struct RepositoriesServiceImpl: RepositoriesService {
@@ -19,8 +19,8 @@ struct RepositoriesServiceImpl: RepositoriesService {
         self.networkService = networkService
     }
     
-    func loadRepositories() async throws -> [Repository] {
-        guard let url = URL(string: "https://api.github.com/repositories") else {
+    func loadRepositories(url: URL?) async throws -> PaginatedResponse<[Repository]> {
+        guard let url = url else {
             throw NetworkError.invalidURL
         }
         return try await networkService.load(url)

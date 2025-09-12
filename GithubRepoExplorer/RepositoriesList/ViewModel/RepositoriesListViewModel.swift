@@ -18,6 +18,9 @@ final class RepositoriesListViewModel: ObservableObject {
     
     private let favoritesStorage: FavoritesStorage
     
+    private var nextPageURL: URL? = URL(string: "https://api.github.com/repositories")
+    
+    private var isLoadingNextPage: Bool = false
     
     init(
         repositoriesService: RepositoriesService,
@@ -29,13 +32,28 @@ final class RepositoriesListViewModel: ObservableObject {
     }
     
     func loadData() async {
-        state = .loading
+        guard !isLoadingNextPage, let url = nextPageURL else { return }
+        isLoadingNextPage = true
+        
+        if isFirstLoad {
+            state = .loading
+        }
+        
         do {
-            let repositories = try await repositoriesService.loadRepositories()
-            state = .loaded(repositories)
+            let paginatedResponse = try await repositoriesService.loadRepositories(url: url)
+            let newRepositories = paginatedResponse.data
+            switch state {
+            case .loaded(let existing):
+                state = .loaded(existing + newRepositories)
+                nextPageURL = paginatedResponse.nextPageURL
+            default:
+                state = .loaded(newRepositories)
+            }
         } catch {
             state = .failed(error)
         }
+        
+        isLoadingNextPage = false
     }
     
     func toggleFavorite(for repository: Repository) {
@@ -49,5 +67,12 @@ final class RepositoriesListViewModel: ObservableObject {
     
     func isFavorite(_ repository: Repository) -> Bool {
         favorites.contains(repository.id)
+    }
+    
+    private var isFirstLoad: Bool {
+        if case .loaded(let data) = state, !data.isEmpty {
+            return false
+        }
+        return true
     }
 }
