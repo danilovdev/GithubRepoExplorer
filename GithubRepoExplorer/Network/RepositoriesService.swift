@@ -12,12 +12,17 @@ protocol RepositoriesService {
 }
 
 struct RepositoriesServiceImpl: RepositoriesService {
+    
+    private let networkService: NetworkService
+    
+    init(networkService: NetworkService) {
+        self.networkService = networkService
+    }
+    
     func loadRepositories() async throws -> [Repository] {
-        let url = URL(string: "https://api.github.com/repositories")!
-        let (data, response) = try await URLSession.shared.data(from: url)
-        guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 else {
-            fatalError("Failed to load repositories")
+        guard let url = URL(string: "https://api.github.com/repositories") else {
+            throw NetworkError.invalidURL
         }
-        return try JSONDecoder().decode([Repository].self, from: data)  
+        return try await networkService.load(url)
     }
 }

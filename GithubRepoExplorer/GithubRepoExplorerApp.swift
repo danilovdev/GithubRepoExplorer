@@ -10,7 +10,8 @@ import SwiftUI
 @main
 struct GithubRepoExplorerApp: App {
     var body: some Scene {
-        let repositoriesService = RepositoriesServiceImpl()
+        let networkService = NetworkServiceImpl()
+        let repositoriesService = RepositoriesServiceImpl(networkService: networkService)
         let favoritesStorage = FavoritesStorageImpl()
         let viewModel = RepositoriesListViewModel(
             repositoriesService: repositoriesService,
