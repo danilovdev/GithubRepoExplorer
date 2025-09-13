@@ -13,18 +13,26 @@ struct FavoritesListView: View {
     
     var body: some View {
         NavigationView {
-            List {
-                ForEach(viewModel.favorites) { repository in
-                    RepositoriesListItemView(
-                        repository: repository,
-                        isFavorite: viewModel.isFavorite(repository),
-                        favoriteHandler: {
-                            viewModel.toggleFavorite(for: repository)
-                        }
-                    )
+            if viewModel.favorites.isEmpty {
+                CustomEmptyView(
+                    systemImageName: "heart.fill",
+                    title: "No favorites yet",
+                    subtitle: "Add repositories to your favorites to see them here."
+                )
+            } else {
+                List {
+                    ForEach(viewModel.favorites) { repository in
+                        RepositoriesListItemView(
+                            repository: repository,
+                            isFavorite: viewModel.isFavorite(repository),
+                            favoriteHandler: {
+                                viewModel.toggleFavorite(for: repository)
+                            }
+                        )
+                    }
                 }
+                .navigationBarTitle("Favorites")
             }
-            .navigationBarTitle("Favorites")
         }
     }
 }
