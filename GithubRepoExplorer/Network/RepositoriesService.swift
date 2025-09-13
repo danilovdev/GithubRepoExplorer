@@ -13,9 +13,9 @@ protocol RepositoriesService {
 
 struct RepositoriesServiceImpl: RepositoriesService {
     
-    private let networkService: NetworkService
+    private let networkService: PaginatedNetworkService
     
-    init(networkService: NetworkService) {
+    init(networkService: PaginatedNetworkService) {
         self.networkService = networkService
     }
     
@@ -23,6 +23,6 @@ struct RepositoriesServiceImpl: RepositoriesService {
         guard let url = url else {
             throw NetworkError.invalidURL
         }
-        return try await networkService.load(url)
+        return try await networkService.loadPaginated(url)
     }
 }

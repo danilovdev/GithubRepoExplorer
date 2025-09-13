@@ -8,11 +8,11 @@
 import Foundation
 
 protocol NetworkService {
-    func load<T: Decodable>(_ url: URL) async throws -> PaginatedResponse<T>
+    func load<Data: Decodable>(_ url: URL) async throws -> NetworkResponse<Data>
 }
 
 final class NetworkServiceImpl: NetworkService {
-    func load<T>(_ url: URL) async throws -> PaginatedResponse<T> where T : Decodable {
+    func load<Data: Decodable>(_ url: URL) async throws -> NetworkResponse<Data> {
         do {
             let (data, response) = try await URLSession.shared.data(from: url)
             
@@ -23,9 +23,8 @@ final class NetworkServiceImpl: NetworkService {
             switch httpResponse.statusCode {
             case 200..<300:
                 do {
-                    let decoded = try JSONDecoder().decode(T.self, from: data)
-                    let nextPageURL = parseNextPageURL(from: httpResponse)
-                    return PaginatedResponse(data: decoded, nextPageURL: nextPageURL)
+                    let decoded = try JSONDecoder().decode(Data.self, from: data)
+                    return NetworkResponse(value: decoded, httpResponse: httpResponse)
                 } catch {
                     throw NetworkError.decodingError
                 }
@@ -37,20 +36,5 @@ final class NetworkServiceImpl: NetworkService {
         } catch {
             throw NetworkError.unknown
         }
-    }
-    
-    func parseNextPageURL(from response: HTTPURLResponse) -> URL? {
-        guard let linkHeader = response.value(forHTTPHeaderField: "Link") else { return nil }
-        let links = linkHeader.components(separatedBy: ",")
-        for link in links {
-            let parts = link.components(separatedBy: ";")
-            guard parts.count == 2 else { continue }
-            let urlPart = parts[0].trimmingCharacters(in: CharacterSet(charactersIn: " <>"))
-            let relPart = parts[1].trimmingCharacters(in: .whitespaces)
-            if relPart == "rel=\"next\"" {
-                return URL(string: urlPart)
-            }
-        }
-        return nil
     }
 }

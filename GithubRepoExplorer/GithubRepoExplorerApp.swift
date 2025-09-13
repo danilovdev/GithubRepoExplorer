@@ -11,7 +11,8 @@ import SwiftUI
 struct GithubRepoExplorerApp: App {
     var body: some Scene {
         let networkService = NetworkServiceImpl()
-        let repositoriesService = RepositoriesServiceImpl(networkService: networkService)
+        let paginatedNetworkService = PaginatedNetworkServiceImpl(networkService: networkService)
+        let repositoriesService = RepositoriesServiceImpl(networkService: paginatedNetworkService)
         let favoritesStorage = FavoritesStorageImpl()
         let viewModel = RepositoriesListViewModel(
             repositoriesService: repositoriesService,
