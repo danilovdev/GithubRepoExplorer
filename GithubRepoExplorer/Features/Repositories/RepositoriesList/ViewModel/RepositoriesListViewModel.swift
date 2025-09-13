@@ -12,11 +12,9 @@ final class RepositoriesListViewModel: ObservableObject {
     
     @Published var state: LoadableState<[Repository]> = .loading
     
-    @Published var favorites: Set<Int> = []
+    private let favoritesViewModel: FavoritesListViewModel
     
     private let repositoriesService: RepositoriesService
-    
-    private let favoritesStorage: FavoritesStorage
     
     private var nextPageURL: URL? = URL(string: "https://api.github.com/repositories")
     
@@ -24,11 +22,10 @@ final class RepositoriesListViewModel: ObservableObject {
     
     init(
         repositoriesService: RepositoriesService,
-        favoritesStorage: FavoritesStorage
+        favoritesViewModel: FavoritesListViewModel
     ) {
         self.repositoriesService = repositoriesService
-        self.favoritesStorage = favoritesStorage
-        self.favorites = favoritesStorage.loadFavorites()
+        self.favoritesViewModel = favoritesViewModel
     }
     
     func loadData() async {
@@ -57,16 +54,11 @@ final class RepositoriesListViewModel: ObservableObject {
     }
     
     func toggleFavorite(for repository: Repository) {
-        if favorites.contains(repository.id) {
-            favorites.remove(repository.id)
-        } else {
-            favorites.insert(repository.id)
-        }
-        favoritesStorage.saveFavorites(favorites)
+        favoritesViewModel.toggleFavorite(for: repository)
     }
     
     func isFavorite(_ repository: Repository) -> Bool {
-        favorites.contains(repository.id)
+        favoritesViewModel.isFavorite(repository)
     }
     
     private var isFirstLoad: Bool {

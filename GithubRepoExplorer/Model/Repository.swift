@@ -5,7 +5,7 @@
 //  Created by Aleksei Danilov on 12.09.2025.
 //
 
-struct Repository: Decodable, Identifiable, Hashable {
+struct Repository: Codable, Identifiable, Hashable {
     let id: Int
     let name: String
     let full_name: String

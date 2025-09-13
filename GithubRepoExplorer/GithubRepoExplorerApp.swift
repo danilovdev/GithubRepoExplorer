@@ -11,7 +11,7 @@ import SwiftUI
 struct GithubRepoExplorerApp: App {
     var body: some Scene {
         WindowGroup {
-            RepositoriesListModuleBuilder.build()
+            MainTabBarView()
         }
     }
 }

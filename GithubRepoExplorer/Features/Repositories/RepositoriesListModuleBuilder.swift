@@ -10,14 +10,13 @@ import SwiftUI
 final class RepositoriesListModuleBuilder {
     
     @MainActor
-    static func build() -> some View {
+    static func build(favoritesViewModel: FavoritesListViewModel) -> some View {
         let networkService = NetworkServiceImpl()
         let paginatedNetworkService = PaginatedNetworkServiceImpl(networkService: networkService)
         let repositoriesService = RepositoriesServiceImpl(networkService: paginatedNetworkService)
-        let favoritesStorage = FavoritesStorageImpl()
         let viewModel = RepositoriesListViewModel(
             repositoriesService: repositoriesService,
-            favoritesStorage: favoritesStorage
+            favoritesViewModel: favoritesViewModel
         )
         let view = RepositoriesListView(viewModel: viewModel)
         return view
