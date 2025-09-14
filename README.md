@@ -1,3 +1,7 @@
+# GitHub Repositories Explorer
+
+A modern SwiftUI Demo project for loading and display list of GitHub repositories. Support grouping, pagination, favorites and handle network errors.
+
 ## 🖥️ Features
 
 - List of GitHub Repositories
@@ -11,6 +15,22 @@
 - Handle empty state
 - Showing loading indicator while loading data
 - Unit tests and mocks
+
+## 🗂️ Folder Structure
+
+- `Components/` - Reusable UI components
+- `Model/` - Enities
+- `Core/` -
+  - `Network/` - 
+  - `Storage/` - 
+  - `Utility/` -
+- `Features/`
+  - `MainTabBaer/` -
+  - `Favorites/` -
+  - `Repositories/` -
+  - `Settings/` -
+- `GithubRepoExplorerTests/` - Unit tests for the application 
+
 
 ## 📺 ScreenShots
 **Normal (Non grouped list of repositories)**
