@@ -6,15 +6,15 @@
 
 <img width="603" height="1311" alt="Simulator Screenshot - iPhone 16 Pro - 2025-09-15 at 01 29 17" src="https://github.com/user-attachments/assets/c8802309-55de-424a-824a-f848b3844f65" />
 
-**Grouped list of repositories**
+**List of Favorites Views**
 
 <img width="603" height="1311" alt="Simulator Screenshot - iPhone 16 Pro - 2025-09-15 at 01 22 43" src="https://github.com/user-attachments/assets/ccee62e4-2a9a-433c-8e4a-c422d800466a" />
 
-**Grouped list of repositories**
+**Settings View**
 
 <img width="603" height="1311" alt="Simulator Screenshot - iPhone 16 Pro - 2025-09-15 at 01 22 47" src="https://github.com/user-attachments/assets/4664bc57-1e98-4ba9-9b73-1b9cd2a088d9" />
 
-**Grouped list of repositories**
+**Details View**
 
 <img width="603" height="1311" alt="Simulator Screenshot - iPhone 16 Pro - 2025-09-15 at 01 22 56" src="https://github.com/user-attachments/assets/4c89dd46-05fb-483e-ac2b-8d1f85b18044" />
 
