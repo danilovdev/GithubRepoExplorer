@@ -12,4 +12,6 @@ struct Repository: Codable, Identifiable, Hashable, Equatable {
     let `private`: Bool
     let fork: Bool
     let owner: Owner
+    let html_url: String?
+    let description: String?
 }

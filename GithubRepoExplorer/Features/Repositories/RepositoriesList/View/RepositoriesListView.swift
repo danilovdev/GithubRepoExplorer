@@ -20,27 +20,26 @@ struct RepositoriesListView: View {
                 case .loading:
                     LoadingView(message: "Loading GitHub repositories...")
                 case .loaded(let repositories):
-                    groupedList
-//                    List(repositories, id: \.id) { repository in
-//                        Button {
-//                            path.append(repository)
-//                        } label: {
-//                            RepositoriesListItemView(
-//                                repository: repository,
-//                                isFavorite: viewModel.isFavorite(repository),
-//                                favoriteHandler: {
-//                                    viewModel.toggleFavorite(for: repository)
-//                                }
-//                            )
-//                            .onAppear {
-//                                if repository.id == repositories.last?.id {
-//                                    Task {
-//                                        await viewModel.loadData()
-//                                    }
-//                                }
-//                            }
-//                        }
-//                    }
+                    List(repositories, id: \.id) { repository in
+                        Button {
+                            path.append(repository)
+                        } label: {
+                            RepositoriesListItemView(
+                                repository: repository,
+                                isFavorite: viewModel.isFavorite(repository),
+                                favoriteHandler: {
+                                    viewModel.toggleFavorite(for: repository)
+                                }
+                            )
+                            .onAppear {
+                                if repository.id == repositories.last?.id {
+                                    Task {
+                                        await viewModel.loadData()
+                                    }
+                                }
+                            }
+                        }
+                    }
                 case .failed(let error):
                     ErrorView(message: error.localizedDescription, retryAction: {
                         Task {
@@ -51,7 +50,15 @@ struct RepositoriesListView: View {
             }
             .navigationTitle("GitHub Repositories")
             .navigationDestination(for: Repository.self) { repository in
-                RepositoryDetailsView()
+                RepositoryDetailsView(
+                    repository: repository,
+                    isFavorite: Binding(
+                        get: { viewModel.isFavorite(repository) },
+                        set: { newValue in
+                            viewModel.toggleFavorite(for: repository)
+                        }
+                    )
+                )
             }
             .task {
                 await viewModel.loadData()

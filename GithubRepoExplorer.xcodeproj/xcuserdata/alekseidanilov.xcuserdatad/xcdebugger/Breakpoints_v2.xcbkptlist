@@ -14,8 +14,8 @@
             filePath = "GithubRepoExplorer/Features/Repositories/RepositoriesList/View/RepositoriesListView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "74"
-            endingLineNumber = "74"
+            startingLineNumber = "81"
+            endingLineNumber = "81"
             landmarkName = "groupedList"
             landmarkType = "24">
          </BreakpointContent>
@@ -30,8 +30,8 @@
             filePath = "GithubRepoExplorer/Features/Repositories/RepositoriesList/View/RepositoriesListView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "70"
-            endingLineNumber = "70"
+            startingLineNumber = "77"
+            endingLineNumber = "77"
             landmarkName = "groupedList"
             landmarkType = "24">
          </BreakpointContent>
@@ -114,36 +114,6 @@
             endingLineNumber = "19"
             landmarkName = "load(_:)"
             landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "F439689D-6D09-4138-99F5-86F0DE0824A0 - 9f254b0e5dc29d6d"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "(1) suspend resume partial function for GithubRepoExplorerTests.MockNetworkService.load&lt;&#x3c4;_0_0 where &#x3c4;_0_0: Swift.Decodable&gt;(Foundation.URL) async throws -&gt; GithubRepoExplorer.NetworkResponse&lt;&#x3c4;_0_0&gt;"
-                  moduleName = "GithubRepoExplorerTests"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/alekseidanilov/Documents/work/danilovdev/GithubRepoExplorer/GithubRepoExplorerTests/Mocks/MockNetworkService.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "19"
-                  endingLineNumber = "19">
-               </Location>
-               <Location
-                  uuid = "F439689D-6D09-4138-99F5-86F0DE0824A0 - 9f254b0e5dc29d6d"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "(1) suspend resume partial function for GithubRepoExplorerTests.MockNetworkService.load&lt;&#x3c4;_0_0 where &#x3c4;_0_0: Swift.Decodable&gt;(Foundation.URL) async throws -&gt; GithubRepoExplorer.NetworkResponse&lt;&#x3c4;_0_0&gt;"
-                  moduleName = "GithubRepoExplorerTests"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/alekseidanilov/Documents/work/danilovdev/GithubRepoExplorer/GithubRepoExplorerTests/Mocks/MockNetworkService.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "19"
-                  endingLineNumber = "19">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
