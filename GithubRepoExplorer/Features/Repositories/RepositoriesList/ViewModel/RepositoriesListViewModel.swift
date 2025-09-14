@@ -46,8 +46,11 @@ final class RepositoriesListViewModel: ObservableObject {
             let newRepositories = paginatedResponse.data
             switch state {
             case .loaded(let existing, _):
-                let grouped = repositoryGrouper.group(existing + newRepositories, by: repositoryGrouping)
-                state = .loaded(existing + newRepositories, grouped)
+                let existingIds = Set(existing.map(\.id))
+                let newUniqueRepos = newRepositories.filter { !existingIds.contains($0.id) }
+                let allRepositories = existing + newUniqueRepos
+                let grouped = repositoryGrouper.group(allRepositories, by: repositoryGrouping)
+                state = .loaded(allRepositories, grouped)
                 nextPageURL = paginatedResponse.nextPageURL
             default:
                 state = .loaded(newRepositories, repositoryGrouper.group(newRepositories, by: repositoryGrouping))

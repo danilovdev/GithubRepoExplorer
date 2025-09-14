@@ -82,11 +82,11 @@ struct RepositoriesListView: View {
                         viewModel.toggleFavorite(for: repository)
                     }
                 )
-                .onAppear {
-                    if repository.id == repositories.last?.id {
-                        Task {
-                            await viewModel.loadData()
-                        }
+            }
+            .onAppear {
+                if repository.id == repositories.last?.id {
+                    Task {
+                        await viewModel.loadData()
                     }
                 }
             }
@@ -96,9 +96,11 @@ struct RepositoriesListView: View {
     @ViewBuilder
     private func groupedList(_ grouped: [String: [Repository]]) -> some View {
         List {
-            ForEach(grouped.keys.sorted(), id: \.self) { key in
+            let sortedKeys = grouped.keys.sorted()
+            ForEach(sortedKeys, id: \.self) { key in
                 Section(header: Text(key)) {
-                    ForEach(grouped[key] ?? [], id: \.id) { repository in
+                    let repositories = grouped[key] ?? []
+                    ForEach(repositories, id: \.id) { repository in
                         Button {
                             selectedRepository = repository
                         } label: {
@@ -109,6 +111,13 @@ struct RepositoriesListView: View {
                                     viewModel.toggleFavorite(for: repository)
                                 }
                             )
+                        }
+                        .onAppear {
+                            if key == sortedKeys.last, repository.id == repositories.last?.id {
+                                Task {
+                                    await viewModel.loadData()
+                                }
+                            }
                         }
                     }
                 }

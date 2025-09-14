@@ -15,7 +15,7 @@ extension Repository {
     }
 }
 
-struct RepositoryGrouper {
+class RepositoryGrouper {
     func group(
         _ repositories: [Repository],
         by grouping: RepositoryGrouping

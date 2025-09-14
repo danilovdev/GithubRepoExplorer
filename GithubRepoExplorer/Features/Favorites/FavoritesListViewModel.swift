@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-final class FavoritesListViewModel: ObservableObject {
+class FavoritesListViewModel: ObservableObject {
     
     private let favoritesStorage: FavoritesStorage
     
