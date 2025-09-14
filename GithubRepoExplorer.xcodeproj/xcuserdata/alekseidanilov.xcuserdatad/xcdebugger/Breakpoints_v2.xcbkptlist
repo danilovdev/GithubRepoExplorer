@@ -7,38 +7,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "23021579-9FD1-4479-AFDD-5D99B10FBD20"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "GithubRepoExplorer/Features/Repositories/RepositoriesList/View/RepositoriesListView.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "95"
-            endingLineNumber = "95"
-            landmarkName = "groupedList"
-            landmarkType = "24">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "21A22814-6D68-4C65-B3A1-A71A190B4328"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "GithubRepoExplorer/Features/Repositories/RepositoriesList/View/RepositoriesListView.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "91"
-            endingLineNumber = "91"
-            landmarkName = "groupedList"
-            landmarkType = "24">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             uuid = "EDA56E5B-C0B2-4A6A-876B-D5ED1B87F7FA"
             shouldBeEnabled = "No"
             ignoreCount = "0"
@@ -55,96 +23,32 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "A6A8124B-4A95-42A8-B083-79291FD15623"
+            uuid = "2CBE3638-CCED-46B7-A0DF-C68575F4AA1B"
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "GithubRepoExplorer/Features/Repositories/RepositoriesList/ViewModel/RepositoriesListViewModel.swift"
+            filePath = "GithubRepoExplorer/Features/Repositories/RepositoriesList/View/RepositoriesListView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "69"
-            endingLineNumber = "69"
-            landmarkName = "toggleFavorite(for:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "33FD0FD3-614C-4F5B-994D-533E61573915"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "GithubRepoExplorer/Features/Repositories/RepositoriesList/ViewModel/RepositoriesListViewModel.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "73"
-            endingLineNumber = "73"
-            landmarkName = "isFavorite(_:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "787E014B-54A3-44B8-8271-E257A0846402"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "GithubRepoExplorer/Features/Repositories/RepositoriesList/ViewModel/RepositoriesListViewModel.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "44"
-            endingLineNumber = "44"
-            landmarkName = "loadData()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "1B1A801C-B83B-4C0B-B714-66A1FC1343B3"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "GithubRepoExplorer/Features/Repositories/RepositoriesList/ViewModel/RepositoriesListViewModel.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "37"
-            endingLineNumber = "37"
-            landmarkName = "groupedRepositories"
+            startingLineNumber = "21"
+            endingLineNumber = "21"
+            landmarkName = "body"
             landmarkType = "24">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "DDFAD8F4-463D-4FF8-9C09-150142E0C85E"
+            uuid = "F4A03C21-9BF2-49AF-8AA4-0019CCA3D478"
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "GithubRepoExplorer/Features/Repositories/RepositoriesList/ViewModel/RepositoriesListViewModel.swift"
+            filePath = "GithubRepoExplorer/Features/Repositories/RepositoriesList/View/RepositoriesListView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "32"
-            endingLineNumber = "32"
-            landmarkName = "init(repositoriesService:repositoryGrouper:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "3151BAE9-EFCD-48B1-B99A-AFA22BA48B4A"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "GithubRepoExplorer/Features/Repositories/RepositoriesList/ViewModel/RepositoriesListViewModel.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "38"
-            endingLineNumber = "38"
-            landmarkName = "groupedRepositories"
+            startingLineNumber = "57"
+            endingLineNumber = "57"
+            landmarkName = "content"
             landmarkType = "24">
          </BreakpointContent>
       </BreakpointProxy>

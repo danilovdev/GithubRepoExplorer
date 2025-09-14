@@ -13,7 +13,7 @@ final class RepositoriesListViewModel: ObservableObject {
     
     @AppStorage("repositoryGrouping") var repositoryGrouping: RepositoryGrouping = .none
     
-    @Published var state: LoadableState<[Repository]> = .loading
+    @Published var state: LoadableState<[Repository], [String: [Repository]]> = .loading
     
     private var favoritesViewModel: FavoritesListViewModel?
     
@@ -33,13 +33,6 @@ final class RepositoriesListViewModel: ObservableObject {
         self.repositoryGrouper = repositoryGrouper
     }
     
-    var groupedRepositories: [String: [Repository]] {
-        guard case .loaded(let repositories) = state else {
-            return [:]
-        }
-        return repositoryGrouper.group(repositories, by: repositoryGrouping)
-    }
-    
     func loadData() async {
         guard !isLoadingNextPage, let url = nextPageURL else { return }
         isLoadingNextPage = true
@@ -52,11 +45,12 @@ final class RepositoriesListViewModel: ObservableObject {
             let paginatedResponse = try await repositoriesService.loadRepositories(url: url)
             let newRepositories = paginatedResponse.data
             switch state {
-            case .loaded(let existing):
-                state = .loaded(existing + newRepositories)
+            case .loaded(let existing, _):
+                let grouped = repositoryGrouper.group(existing + newRepositories, by: repositoryGrouping)
+                state = .loaded(existing + newRepositories, grouped)
                 nextPageURL = paginatedResponse.nextPageURL
             default:
-                state = .loaded(newRepositories)
+                state = .loaded(newRepositories, repositoryGrouper.group(newRepositories, by: repositoryGrouping))
             }
         } catch {
             state = .failed(error)
@@ -78,9 +72,16 @@ final class RepositoriesListViewModel: ObservableObject {
     }
     
     private var isFirstLoad: Bool {
-        if case .loaded(let data) = state, !data.isEmpty {
+        if case .loaded(let data, _) = state, !data.isEmpty {
             return false
         }
         return true
+    }
+    
+    func regroup() {
+        if case .loaded(let data, _) = state {
+            let grouped = repositoryGrouper.group(data, by: repositoryGrouping)
+            state = .loaded(data, grouped)
+        }
     }
 }

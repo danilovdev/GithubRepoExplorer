@@ -19,86 +19,93 @@ struct RepositoriesListView: View {
     
     var body: some View {
         NavigationStack(path: $path) {
-            VStack {
-                switch viewModel.state {
-                case .loading:
-                    LoadingView(message: "Loading GitHub repositories...")
-                case .loaded(let repositories):
-                    List(repositories, id: \.id) { repository in
-                        Button {
-                            selectedRepository = repository
-                        } label: {
-                            RepositoriesListItemView(
-                                repository: repository,
-                                isFavorite: viewModel.isFavorite(repository),
-                                favoriteHandler: {
+            content
+                .onChange(of: viewModel.repositoryGrouping) {
+                    viewModel.regroup()
+                }
+                .navigationTitle("GitHub Repositories")
+                .navigationDestination(item: $selectedRepository) { repository in
+                    RepositoryDetailsView(
+                        repository: repository,
+                        isFavorite: Binding(
+                            get: {
+                                viewModel.isFavorite(repository)
+                            }, set: { newValue in
+                                if newValue != viewModel.isFavorite(repository) {
                                     viewModel.toggleFavorite(for: repository)
                                 }
-                            )
-                            .onAppear {
-                                if repository.id == repositories.last?.id {
-                                    Task {
-                                        await viewModel.loadData()
-                                    }
-                                }
-                            }
-                        }
-                    }
-                case .failed(let error):
-                    ErrorView(message: error.localizedDescription, retryAction: {
-                        Task {
-                            await viewModel.loadData()
-                        }
-                    })
+                            })
+                    )
                 }
-            }
-            .navigationTitle("GitHub Repositories")
-            .navigationDestination(item: $selectedRepository) { repository in
-                RepositoryDetailsView(
-                    repository: repository,
-                    isFavorite: Binding(
-                    get: {
-                        viewModel.isFavorite(repository)
-                    }, set: { newValue in
-                        if newValue != viewModel.isFavorite(repository) {
-                            viewModel.toggleFavorite(for: repository)
-                        }
-                    })
-                )
-            }
-            .task {
-                if case .loaded = viewModel.state { return }
-                await viewModel.loadData()
-            }
-            .onAppear {
-                viewModel.setFavoritesViewModel(favoriteListViewModel)
+                .task {
+                    if case .loaded = viewModel.state { return }
+                    await viewModel.loadData()
+                }
+                .onAppear {
+                    viewModel.setFavoritesViewModel(favoriteListViewModel)
+                }
+        }
+    }
+    
+    @ViewBuilder
+    private var content: some View {
+        VStack {
+            switch viewModel.state {
+            case .loading:
+                LoadingView(message: "Loading GitHub repositories...")
+            case .loaded(let list, let grouped):
+                if viewModel.repositoryGrouping == .none {
+                    flatList(list)
+                } else {
+                    groupedList(grouped)
+                }
+            case .failed(let error):
+                ErrorView(message: error.localizedDescription, retryAction: {
+                    Task {
+                        await viewModel.loadData()
+                    }
+                })
             }
         }
     }
     
-    private var groupedList: some View {
-        List {
-            ForEach(viewModel.groupedRepositories.keys.sorted(), id: \.self) { key in
-                Section(header: Text(key)) {
-                    ForEach(viewModel.groupedRepositories[key] ?? [], id: \.id) { repository in
-                        Button {
-                            path.append(repository)
-                        } label: {
-                            RepositoriesListItemView(
-                                repository: repository,
-                                isFavorite: viewModel.isFavorite(repository),
-                                favoriteHandler: {
-                                    viewModel.toggleFavorite(for: repository)
-                                }
-                            )
-//                            .onAppear {
-//                                if repository.id == repositories.last?.id {
-//                                    Task {
-//                                        await viewModel.loadData()
-//                                    }
-//                                }
-//                            }
+    @ViewBuilder
+    private func flatList(_ repositories: [Repository]) -> some View {
+        List(repositories, id: \.id) { repository in
+            Button {
+                selectedRepository = repository
+            } label: {
+                RepositoriesListItemView(
+                    repository: repository,
+                    isFavorite: viewModel.isFavorite(repository),
+                    favoriteHandler: {
+                        viewModel.toggleFavorite(for: repository)
+                    }
+                )
+                .onAppear {
+                    if repository.id == repositories.last?.id {
+                        Task {
+                            await viewModel.loadData()
                         }
+                    }
+                }
+            }
+        }
+    }
+    
+    @ViewBuilder
+    private func groupedList(_ grouped: [String: [Repository]]) -> some View {
+        List {
+            ForEach(grouped.keys.sorted(), id: \.self) { key in
+                Section(header: Text(key)) {
+                    ForEach(grouped[key] ?? [], id: \.id) { repository in
+                        RepositoriesListItemView(
+                            repository: repository,
+                            isFavorite: viewModel.isFavorite(repository),
+                            favoriteHandler: {
+                                viewModel.toggleFavorite(for: repository)
+                            }
+                        )
                     }
                 }
             }
