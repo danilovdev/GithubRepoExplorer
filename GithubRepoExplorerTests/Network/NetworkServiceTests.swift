@@ -11,7 +11,7 @@ import XCTest
 final class NetworkServiceTests: XCTestCase {
     private var service: NetworkServiceImpl!
     private var mockSession: MockURLSession!
-    private let testURL = URL(string: "https://www.example.com")!
+    private let testURL = URL(string: "https://www.google.com")!
     
     override func setUp() {
         super.setUp()
@@ -41,7 +41,7 @@ final class NetworkServiceTests: XCTestCase {
     }
     
     func testLoad_DecodingError() async {
-        mockSession.mockData = Data("not json".utf8)
+        mockSession.mockData = Data("Random String".utf8)
         mockSession.mockResponse = HTTPURLResponse(
             url: testURL,
             statusCode: 200,

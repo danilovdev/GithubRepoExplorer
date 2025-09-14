@@ -12,7 +12,7 @@ final class PaginatedNetworkServiceTests: XCTestCase {
     
     private var mockNetworkService: MockNetworkService!
     private var service: PaginatedNetworkServiceImpl!
-    private let testURL = URL(string: "https://www.example.com")!
+    private let testURL = URL(string: "https://www.google.com")!
     
     override func setUp() {
         super.setUp()
@@ -29,7 +29,7 @@ final class PaginatedNetworkServiceTests: XCTestCase {
     func testLoadPaginated_SuccesWithNextPage() async throws {
         let expectedModel = TestModel(id: 1, name: "Test Model")
         let data = [expectedModel]
-        let nextPage = "www.example.com/next"
+        let nextPage = "www.google.com/next"
         let linkHeader = "<\(nextPage)>; rel=\"next\""
         let httpResponse = try XCTUnwrap(HTTPURLResponse(
             url: testURL,

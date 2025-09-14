@@ -14,7 +14,7 @@ final class RepositoriesServiceTests: XCTestCase {
     
     private var mockNetworkService: MockPaginatedNetworkService!
     
-    private let testURL = URL(string: "https://www.example.com")!
+    private let testURL = URL(string: "https://www.google.com")!
     
     override func setUp() {
         super.setUp()
@@ -44,7 +44,7 @@ final class RepositoriesServiceTests: XCTestCase {
                 type: .user
             )
         )
-        let expectedNextPageURL = try XCTUnwrap(URL(string: "https://www.example.com/next/365"))
+        let expectedNextPageURL = try XCTUnwrap(URL(string: "https://www.google.com/next/365"))
         let expectedResponse = PaginatedResponse(data: [repo], nextPageURL: expectedNextPageURL)
         mockNetworkService.mockResult = .success(expectedResponse)
         
