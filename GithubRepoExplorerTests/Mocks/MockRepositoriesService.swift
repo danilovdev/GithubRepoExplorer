@@ -15,7 +15,10 @@ final class MockRepositoriesService: RepositoriesService {
     
     var mockResult: Result<PaginatedResponse<[Repository]>, Error>?
     
+    var callCount = 0
+    
     func loadRepositories(url: URL?) async throws -> PaginatedResponse<[Repository]> {
+        callCount += 1
         receivedURL = url
         switch mockResult {
         case .none:

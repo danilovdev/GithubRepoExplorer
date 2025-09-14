@@ -13,6 +13,10 @@ final class MockFavoritesListViewModel: FavoritesListViewModel {
     
     var favoriteIds: Set<Int> = []
     
+    init() {
+        super.init(favoritesStorage: MockFavoritesStorage())
+    }
+    
     override func toggleFavorite(for repository: Repository) {
         toggled.append(repository)
         

@@ -84,7 +84,8 @@ struct RepositoriesListView: View {
                 )
             }
             .onAppear {
-                if repository.id == repositories.last?.id {
+                if let index = repositories.firstIndex(where: { $0.id == repository.id }),
+                   index >= repositories.count - 5 {
                     Task {
                         await viewModel.loadData()
                     }
@@ -113,7 +114,9 @@ struct RepositoriesListView: View {
                             )
                         }
                         .onAppear {
-                            if key == sortedKeys.last, repository.id == repositories.last?.id {
+                            if key == sortedKeys.last,
+                               let index = repositories.firstIndex(where: { $0.id == repository.id }),
+                               index >= repositories.count - 5 {
                                 Task {
                                     await viewModel.loadData()
                                 }
