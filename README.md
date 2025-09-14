@@ -29,7 +29,24 @@ A modern SwiftUI Demo project for loading and display list of GitHub repositorie
   - `Favorites/` - Manages the user's favorite repositories
   - `Repositories/` - Handles everything related to browsing, grouping and viewing details of GitHub reposiotries.
   - `Settings/` - Settings screen and logic for user preferences
-- `GithubRepoExplorerTests/` - Unit tests for the application 
+- `GithubRepoExplorerTests/` - Unit tests for the application
+
+## 🛒 Grouping choice
+Repositories can be grouped by fork status (forked or original) and by owner type (user or organization). Also support NON grouped - just flat list of repositories.
+
+## ‼️ Error Handling Logic
+
+### Error Types:
+- `Invalid URL Handling` - If the URL is invalid. This ensures that only valid URLs are passed to the network layer. The caller should throw `.invalidURL`
+- `Network Response validation` - Attempts to fetch data from the provided URL. Check that the response is as `HTTPResponse`, if not throws `.invalidResponse`
+- `HTTP Status Code Handling`: 
+  - `2xx (Success)`: 
+    - `Decoding Error` - Tries to decode the response data into expected type, if decoding fails, throws `.decodingError`
+  - `403 (Rate Limit)` - To indicate the API rate limit was hit. Throws `.rateLimit`
+  - `Other Status Codes` - For all other non-successful responses, throws `.httpError(code:)`
+- `Unknow error` - For any other unexpected errors throws `.unknown` error
+
+## 📕 Pagination Strategy
 
 
 ## 📺 ScreenShots
