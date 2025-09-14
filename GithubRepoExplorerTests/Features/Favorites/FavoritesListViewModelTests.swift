@@ -27,7 +27,9 @@ final class FavoritesListViewModelTests: XCTestCase {
             url: "",
             html_url: "",
             type: .user
-        )
+        ),
+        html_url: "https://github.com/Repo1",
+        description: "Desc 1"
     )
     
     private let fav2 = Repository(
@@ -43,7 +45,9 @@ final class FavoritesListViewModelTests: XCTestCase {
             url: "",
             html_url: "",
             type: .user
-        )
+        ),
+        html_url: "https://github.com/Repo2",
+        description: "Desc 2"
     )
     
     override func setUp() {

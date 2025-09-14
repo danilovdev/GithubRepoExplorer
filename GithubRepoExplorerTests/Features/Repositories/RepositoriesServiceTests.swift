@@ -42,7 +42,9 @@ final class RepositoriesServiceTests: XCTestCase {
                 url: "",
                 html_url: "",
                 type: .user
-            )
+            ),
+            html_url: "https://github.com/Repo1",
+            description: "Desc 1"
         )
         let expectedNextPageURL = try XCTUnwrap(URL(string: "https://www.google.com/next/365"))
         let expectedResponse = PaginatedResponse(data: [repo], nextPageURL: expectedNextPageURL)

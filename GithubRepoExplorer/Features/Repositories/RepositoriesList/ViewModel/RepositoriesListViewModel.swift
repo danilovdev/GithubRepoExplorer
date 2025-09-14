@@ -15,7 +15,7 @@ final class RepositoriesListViewModel: ObservableObject {
     
     @Published var state: LoadableState<[Repository]> = .loading
     
-    private let favoritesViewModel: FavoritesListViewModel
+    private var favoritesViewModel: FavoritesListViewModel?
     
     private let repositoriesService: RepositoriesService
     
@@ -27,11 +27,9 @@ final class RepositoriesListViewModel: ObservableObject {
     
     init(
         repositoriesService: RepositoriesService,
-        favoritesViewModel: FavoritesListViewModel,
         repositoryGrouper: RepositoryGrouper
     ) {
         self.repositoriesService = repositoriesService
-        self.favoritesViewModel = favoritesViewModel
         self.repositoryGrouper = repositoryGrouper
     }
     
@@ -68,11 +66,15 @@ final class RepositoriesListViewModel: ObservableObject {
     }
     
     func toggleFavorite(for repository: Repository) {
-        favoritesViewModel.toggleFavorite(for: repository)
+        favoritesViewModel?.toggleFavorite(for: repository)
     }
     
     func isFavorite(_ repository: Repository) -> Bool {
-        favoritesViewModel.isFavorite(repository)
+        favoritesViewModel?.isFavorite(repository) ?? false
+    }
+    
+    func setFavoritesViewModel(_ viewModel: FavoritesListViewModel) {
+        favoritesViewModel = viewModel
     }
     
     private var isFirstLoad: Bool {

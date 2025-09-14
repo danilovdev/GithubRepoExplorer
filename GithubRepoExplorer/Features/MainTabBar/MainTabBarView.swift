@@ -7,17 +7,35 @@
 
 import SwiftUI
 
+struct MainTabBarBuilder {
+    
+    @MainActor
+    static func build() -> some View {
+        let favoritesViewModel = FavoritesListViewModel(favoritesStorage: FavoritesStorageImpl())
+        let repositoryGrouper = RepositoryGrouper()
+        let networkService = NetworkServiceImpl(session: URLSession.shared)
+        let paginatedNetworkService = PaginatedNetworkServiceImpl(networkService: networkService)
+        let repositoriesService = RepositoriesServiceImpl(networkService: paginatedNetworkService)
+        let repositoriesViewModel = RepositoriesListViewModel(
+            repositoriesService: repositoriesService,
+            repositoryGrouper: repositoryGrouper
+        )
+        return MainTabBarView(repositoriesViewModel: repositoriesViewModel)
+            .environmentObject(favoritesViewModel)
+    }
+}
+
 struct MainTabBarView: View {
     
-    @StateObject private var favoritesViewModel = FavoritesListViewModel(favoritesStorage: FavoritesStorageImpl())
+    @ObservedObject var repositoriesViewModel: RepositoriesListViewModel
     
     var body: some View {
         TabView {
-            RepositoriesListModuleBuilder.build(favoritesViewModel: favoritesViewModel)
+            RepositoriesListView(viewModel: repositoriesViewModel)
                 .tabItem {
                     Label("Home", systemImage: "house")
                 }
-            FavoritesModuleBuilder.build(favoritesViewModel: favoritesViewModel)
+            FavoritesListView()
                 .tabItem {
                     Label("Favorites", systemImage: "heart.fill")
                 }

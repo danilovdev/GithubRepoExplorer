@@ -9,7 +9,7 @@ import SwiftUI
 
 struct FavoritesListView: View {
     
-    @ObservedObject var viewModel: FavoritesListViewModel
+    @EnvironmentObject var viewModel: FavoritesListViewModel
     
     var body: some View {
         NavigationView {

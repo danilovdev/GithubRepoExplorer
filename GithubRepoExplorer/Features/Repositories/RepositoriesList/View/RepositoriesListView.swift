@@ -11,6 +11,8 @@ struct RepositoriesListView: View {
     
     @ObservedObject var viewModel: RepositoriesListViewModel
     
+    @EnvironmentObject var favoriteListViewModel: FavoritesListViewModel
+    
     @State private var selectedRepository: Repository?
     
     @State private var path: [Repository] = []
@@ -65,7 +67,11 @@ struct RepositoriesListView: View {
                 )
             }
             .task {
+                if case .loaded = viewModel.state { return }
                 await viewModel.loadData()
+            }
+            .onAppear {
+                viewModel.setFavoritesViewModel(favoriteListViewModel)
             }
         }
     }
