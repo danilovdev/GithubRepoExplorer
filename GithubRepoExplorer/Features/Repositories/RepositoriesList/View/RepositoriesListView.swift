@@ -9,7 +9,9 @@ import SwiftUI
 
 struct RepositoriesListView: View {
     
-    @StateObject var viewModel: RepositoriesListViewModel
+    @ObservedObject var viewModel: RepositoriesListViewModel
+    
+    @State private var selectedRepository: Repository?
     
     @State private var path: [Repository] = []
     
@@ -22,7 +24,7 @@ struct RepositoriesListView: View {
                 case .loaded(let repositories):
                     List(repositories, id: \.id) { repository in
                         Button {
-                            path.append(repository)
+                            selectedRepository = repository
                         } label: {
                             RepositoriesListItemView(
                                 repository: repository,
@@ -49,15 +51,17 @@ struct RepositoriesListView: View {
                 }
             }
             .navigationTitle("GitHub Repositories")
-            .navigationDestination(for: Repository.self) { repository in
+            .navigationDestination(item: $selectedRepository) { repository in
                 RepositoryDetailsView(
                     repository: repository,
                     isFavorite: Binding(
-                        get: { viewModel.isFavorite(repository) },
-                        set: { newValue in
+                    get: {
+                        viewModel.isFavorite(repository)
+                    }, set: { newValue in
+                        if newValue != viewModel.isFavorite(repository) {
                             viewModel.toggleFavorite(for: repository)
                         }
-                    )
+                    })
                 )
             }
             .task {
