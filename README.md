@@ -19,11 +19,11 @@ A modern SwiftUI Demo project for loading and display list of GitHub repositorie
 ## 🗂️ Folder Structure
 
 - `Components/` - Reusable UI components
-- `Model/` - Enities
-- `Core/` -
-  - `Network/` - 
-  - `Storage/` - 
-  - `Utility/` -
+- `Model/` - Contains all data models and domain objects used throughout the application
+- `Core/` - Contains foundational modules and services that are used across the app
+  - `Network/` - Handle all networking logic, API calls and network abstractions
+  - `Storage/` - Manage data persistance
+  - `Utility/` - Helper classes and reusable tools
 - `Features/`
   - `MainTabBaer/` -
   - `Favorites/` -
