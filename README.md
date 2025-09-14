@@ -46,7 +46,86 @@ Repositories can be grouped by fork status (forked or original) and by owner typ
   - `Other Status Codes` - For all other non-successful responses, throws `.httpError(code:)`
 - `Unknow error` - For any other unexpected errors throws `.unknown` error
 
+  ```
+  func load<Data: Decodable>(_ url: URL) async throws -> NetworkResponse<Data> {
+        do {
+            let (data, response) = try await session.data(from: url)
+            
+            guard let httpResponse = response as? HTTPURLResponse else {
+                throw NetworkError.invalidResponse
+            }
+            
+            switch httpResponse.statusCode {
+            case 200..<300:
+                do {
+                    let decoded = try JSONDecoder().decode(Data.self, from: data)
+                    return NetworkResponse(value: decoded, httpResponse: httpResponse)
+                } catch {
+                    throw NetworkError.decodingError
+                }
+            case 403:
+                throw NetworkError.rateLimit
+            default:
+                throw NetworkError.httpError(code: httpResponse.statusCode)
+            }
+        } catch let error as NetworkError {
+            throw error
+        } catch {
+            throw NetworkError.unknown
+        }
+    }
+  ```
+
 ## 📕 Pagination Strategy
+
+App implements pagination strategy for loading GitHub repositories.
+
+### How it works
+- GitHub API uses the HTTP `Link` header for pagination
+- After each request, the application checks the `Link` header in the HTTP response for `rel="next"` URL
+- If a `next` URL is present, it is used for fetch the next page of repositories
+- Process repeats as the user scrolls, enabling **Infinite scrolling** in the UI
+
+### Example flow
+
+1. Initial request
+`GET https://api.github.com/repositories`
+
+2. Response header
+`Link: <https://api.github.com/repositories?since=364>; rel="next", ...`
+
+3. Next request
+`GET https://api.github.com/repositories?since=364`
+
+4. Repeat until no `rel="next"` link is present
+
+### Load paginated response
+```
+func loadPaginated<Data: Decodable>(_ url: URL) async throws -> PaginatedResponse<Data> {
+    let response: NetworkResponse<Data> = try await networkService.load(url)
+    let nextPageURL = parseNextPageURL(from: response.httpResponse)
+    return PaginatedResponse(data: response.value, nextPageURL: nextPageURL)
+}
+```
+
+### Parse response header and get next url
+```
+func parseNextPageURL(from response: HTTPURLResponse) -> URL? {
+  guard let linkHeader = response.value(forHTTPHeaderField: "Link") else { return nil }
+  let links = linkHeader.components(separatedBy: ",")
+
+  for link in links {
+    let parts = link.components(separatedBy: ";")
+    guard parts.count == 2 else { continue }
+    let urlPart = parts[0].trimmingCharacters(in: CharacterSet(charactersIn: " <>"))
+    let relPart = parts[1].trimmingCharacters(in: .whitespaces)
+    if relPart == "rel=\"next\"" {
+      return URL(string: urlPart)
+    }
+  }
+  return nil
+}
+```
 
 
 ## 📺 ScreenShots
