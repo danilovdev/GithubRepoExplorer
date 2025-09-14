@@ -99,13 +99,17 @@ struct RepositoriesListView: View {
             ForEach(grouped.keys.sorted(), id: \.self) { key in
                 Section(header: Text(key)) {
                     ForEach(grouped[key] ?? [], id: \.id) { repository in
-                        RepositoriesListItemView(
-                            repository: repository,
-                            isFavorite: viewModel.isFavorite(repository),
-                            favoriteHandler: {
-                                viewModel.toggleFavorite(for: repository)
-                            }
-                        )
+                        Button {
+                            selectedRepository = repository
+                        } label: {
+                            RepositoriesListItemView(
+                                repository: repository,
+                                isFavorite: viewModel.isFavorite(repository),
+                                favoriteHandler: {
+                                    viewModel.toggleFavorite(for: repository)
+                                }
+                            )
+                        }
                     }
                 }
             }
