@@ -6,9 +6,12 @@
 //
 
 import Foundation
+import SwiftUI
 
 @MainActor
 final class RepositoriesListViewModel: ObservableObject {
+    
+    @AppStorage("repositoryGrouping") var repositoryGrouping: RepositoryGrouping = .none
     
     @Published var state: LoadableState<[Repository]> = .loading
     
@@ -16,16 +19,27 @@ final class RepositoriesListViewModel: ObservableObject {
     
     private let repositoriesService: RepositoriesService
     
+    private let repositoryGrouper: RepositoryGrouper
+    
     private var nextPageURL: URL? = URL(string: "https://api.github.com/repositories")
     
     private var isLoadingNextPage: Bool = false
     
     init(
         repositoriesService: RepositoriesService,
-        favoritesViewModel: FavoritesListViewModel
+        favoritesViewModel: FavoritesListViewModel,
+        repositoryGrouper: RepositoryGrouper
     ) {
         self.repositoriesService = repositoriesService
         self.favoritesViewModel = favoritesViewModel
+        self.repositoryGrouper = repositoryGrouper
+    }
+    
+    var groupedRepositories: [String: [Repository]] {
+        guard case .loaded(let repositories) = state else {
+            return [:]
+        }
+        return repositoryGrouper.group(repositories, by: repositoryGrouping)
     }
     
     func loadData() async {

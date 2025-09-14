@@ -5,12 +5,12 @@
 //  Created by Aleksei Danilov on 12.09.2025.
 //
 
-enum OwnerType: String, Codable, Hashable {
+enum OwnerType: String, Codable, Hashable, Equatable {
     case user = "User"
     case organization = "Organization"
 }
 
-struct Owner: Codable, Hashable {
+struct Owner: Codable, Hashable, Equatable {
     let login: String
     let id: Int
     let avatar_url: String

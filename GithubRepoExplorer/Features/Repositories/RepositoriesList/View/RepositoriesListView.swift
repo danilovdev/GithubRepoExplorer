@@ -20,26 +20,27 @@ struct RepositoriesListView: View {
                 case .loading:
                     LoadingView(message: "Loading GitHub repositories...")
                 case .loaded(let repositories):
-                    List(repositories, id: \.id) { repository in
-                        Button {
-                            path.append(repository)
-                        } label: {
-                            RepositoriesListItemView(
-                                repository: repository,
-                                isFavorite: viewModel.isFavorite(repository),
-                                favoriteHandler: {
-                                    viewModel.toggleFavorite(for: repository)
-                                }
-                            )
-                            .onAppear {
-                                if repository.id == repositories.last?.id {
-                                    Task {
-                                        await viewModel.loadData()
-                                    }
-                                }
-                            }
-                        }
-                    }
+                    groupedList
+//                    List(repositories, id: \.id) { repository in
+//                        Button {
+//                            path.append(repository)
+//                        } label: {
+//                            RepositoriesListItemView(
+//                                repository: repository,
+//                                isFavorite: viewModel.isFavorite(repository),
+//                                favoriteHandler: {
+//                                    viewModel.toggleFavorite(for: repository)
+//                                }
+//                            )
+//                            .onAppear {
+//                                if repository.id == repositories.last?.id {
+//                                    Task {
+//                                        await viewModel.loadData()
+//                                    }
+//                                }
+//                            }
+//                        }
+//                    }
                 case .failed(let error):
                     ErrorView(message: error.localizedDescription, retryAction: {
                         Task {
@@ -54,6 +55,35 @@ struct RepositoriesListView: View {
             }
             .task {
                 await viewModel.loadData()
+            }
+        }
+    }
+    
+    private var groupedList: some View {
+        List {
+            ForEach(viewModel.groupedRepositories.keys.sorted(), id: \.self) { key in
+                Section(header: Text(key)) {
+                    ForEach(viewModel.groupedRepositories[key] ?? [], id: \.id) { repository in
+                        Button {
+                            path.append(repository)
+                        } label: {
+                            RepositoriesListItemView(
+                                repository: repository,
+                                isFavorite: viewModel.isFavorite(repository),
+                                favoriteHandler: {
+                                    viewModel.toggleFavorite(for: repository)
+                                }
+                            )
+//                            .onAppear {
+//                                if repository.id == repositories.last?.id {
+//                                    Task {
+//                                        await viewModel.loadData()
+//                                    }
+//                                }
+//                            }
+                        }
+                    }
+                }
             }
         }
     }

@@ -7,14 +7,27 @@
 
 import Foundation
 
+protocol URLSessionProtocol {
+    func data(from url: URL) async throws -> (Data, URLResponse)
+}
+
+extension URLSession: URLSessionProtocol { }
+
 protocol NetworkService {
     func load<Data: Decodable>(_ url: URL) async throws -> NetworkResponse<Data>
 }
 
 final class NetworkServiceImpl: NetworkService {
+    
+    private let session: URLSessionProtocol
+    
+    init(session: URLSessionProtocol) {
+        self.session = session
+    }
+    
     func load<Data: Decodable>(_ url: URL) async throws -> NetworkResponse<Data> {
         do {
-            let (data, response) = try await URLSession.shared.data(from: url)
+            let (data, response) = try await session.data(from: url)
             
             guard let httpResponse = response as? HTTPURLResponse else {
                 throw NetworkError.invalidResponse
@@ -33,6 +46,8 @@ final class NetworkServiceImpl: NetworkService {
             default:
                 throw NetworkError.httpError(code: httpResponse.statusCode)
             }
+        } catch let error as NetworkError {
+            throw error
         } catch {
             throw NetworkError.unknown
         }
