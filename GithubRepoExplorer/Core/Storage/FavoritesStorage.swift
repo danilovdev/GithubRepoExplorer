@@ -16,7 +16,7 @@ extension UserDefaults: UserDefaultsProtocol {}
 
 protocol FavoritesStorage {
     func loadFavorites() -> [Repository]
-    func saveFavorites(_ favoritesIds: [Repository])
+    func saveFavorites(_ favorites: [Repository])
 }
 
 final class FavoritesStorageImpl: FavoritesStorage {

@@ -7,38 +7,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "6645872D-295D-4EBA-84D8-02007455810D"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "GithubRepoExplorer/Features/Favorites/FavoritesListViewModel.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "22"
-            endingLineNumber = "22"
-            landmarkName = "toggleFavorite(for:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "C2373D34-8A61-49CB-894D-0CA923AEDB40"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "GithubRepoExplorer/Features/Favorites/FavoritesListViewModel.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "32"
-            endingLineNumber = "32"
-            landmarkName = "isFavorite(_:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             uuid = "23021579-9FD1-4479-AFDD-5D99B10FBD20"
             shouldBeEnabled = "No"
             ignoreCount = "0"
@@ -146,13 +114,43 @@
             endingLineNumber = "19"
             landmarkName = "load(_:)"
             landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "F439689D-6D09-4138-99F5-86F0DE0824A0 - 9f254b0e5dc29d6d"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(1) suspend resume partial function for GithubRepoExplorerTests.MockNetworkService.load&lt;&#x3c4;_0_0 where &#x3c4;_0_0: Swift.Decodable&gt;(Foundation.URL) async throws -&gt; GithubRepoExplorer.NetworkResponse&lt;&#x3c4;_0_0&gt;"
+                  moduleName = "GithubRepoExplorerTests"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/alekseidanilov/Documents/work/danilovdev/GithubRepoExplorer/GithubRepoExplorerTests/Mocks/MockNetworkService.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "19"
+                  endingLineNumber = "19">
+               </Location>
+               <Location
+                  uuid = "F439689D-6D09-4138-99F5-86F0DE0824A0 - 9f254b0e5dc29d6d"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(1) suspend resume partial function for GithubRepoExplorerTests.MockNetworkService.load&lt;&#x3c4;_0_0 where &#x3c4;_0_0: Swift.Decodable&gt;(Foundation.URL) async throws -&gt; GithubRepoExplorer.NetworkResponse&lt;&#x3c4;_0_0&gt;"
+                  moduleName = "GithubRepoExplorerTests"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/alekseidanilov/Documents/work/danilovdev/GithubRepoExplorer/GithubRepoExplorerTests/Mocks/MockNetworkService.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "19"
+                  endingLineNumber = "19">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "EDA56E5B-C0B2-4A6A-876B-D5ED1B87F7FA"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "GithubRepoExplorer/Core/Storage/FavoritesStorage.swift"

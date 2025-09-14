@@ -9,6 +9,6 @@ import SwiftUI
 
 final class FavoritesModuleBuilder {
     static func build(favoritesViewModel: FavoritesListViewModel) -> some View {
-        return FavoritesListView(viewModel: favoritesViewModel)
+        FavoritesListView(viewModel: favoritesViewModel)
     }
 }
