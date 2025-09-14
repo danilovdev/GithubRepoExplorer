@@ -24,11 +24,11 @@ A modern SwiftUI Demo project for loading and display list of GitHub repositorie
   - `Network/` - Handle all networking logic, API calls and network abstractions
   - `Storage/` - Manage data persistance
   - `Utility/` - Helper classes and reusable tools
-- `Features/`
-  - `MainTabBaer/` -
-  - `Favorites/` -
-  - `Repositories/` -
-  - `Settings/` -
+- `Features/` - Organizes the main functional areas of the app
+  - `MainTabBar/` - Contains main tab bar
+  - `Favorites/` - Manages the user's favorite repositories
+  - `Repositories/` - Handles everything related to browsing, grouping and viewing details of GitHub reposiotries.
+  - `Settings/` - Settings screen and logic for user preferences
 - `GithubRepoExplorerTests/` - Unit tests for the application 
 
 
