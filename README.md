@@ -1,3 +1,18 @@
+## 🖥️ Features
+
+- List of GitHub Repositories
+- Support pagination when scroll down (Infinite scrolling)
+- Add to favorites and remove from favorites
+- Store favorites locally on device
+- Store setting locally on device
+- Group repositories by owner type or by fork status
+- See repository details
+- Handle network errors with ability to retry loading
+- Handle empty state
+- Showing loading indicator while loading data
+- Unit tests and mocks
+
+## 📺 ScreenShots
 **Normal (Non grouped list of repositories)**
 
 <img width="603" height="1311" alt="Simulator Screenshot - iPhone 16 Pro - 2025-09-15 at 01 22 33" src="https://github.com/user-attachments/assets/1ca4b91b-1dd3-4dc7-9c77-a7a10eba77c6" />
