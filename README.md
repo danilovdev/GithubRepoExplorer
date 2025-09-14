@@ -6,7 +6,7 @@
 
 <img width="603" height="1311" alt="Simulator Screenshot - iPhone 16 Pro - 2025-09-15 at 01 29 17" src="https://github.com/user-attachments/assets/c8802309-55de-424a-824a-f848b3844f65" />
 
-**List of Favorites Views**
+**List of Favorites View**
 
 <img width="603" height="1311" alt="Simulator Screenshot - iPhone 16 Pro - 2025-09-15 at 01 22 43" src="https://github.com/user-attachments/assets/ccee62e4-2a9a-433c-8e4a-c422d800466a" />
 
